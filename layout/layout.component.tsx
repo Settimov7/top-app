@@ -6,6 +6,7 @@ import { Header } from './header/header.component';
 import { Sidebar } from './sidebar/sidebar.component';
 import { Footer } from './footer/footer.component';
 import styles from './layout.module.css';
+import { AppContextApi, AppContextProvider } from '../context/app.context';
 
 export function Layout({ children }: LayoutProps): JSX.Element {
     return (
@@ -20,12 +21,14 @@ export function Layout({ children }: LayoutProps): JSX.Element {
     );
 }
 
-export const withLayout = <T extends Record<string, unknown>>(Component: FC<T>): FC<T> => {
+export const withLayout = <T extends Record<string, unknown> & AppContextApi>(Component: FC<T>): FC<T> => {
     return function componentWithLayout(props: T): JSX.Element {
         return (
-            <Layout>
-                <Component {...props}/>
-            </Layout>
+            <AppContextProvider menu={props.menu} firstCategory={props.firstCategory}>
+                <Layout>
+                    <Component {...props}/>
+                </Layout>
+            </AppContextProvider>
         );
     };
 };

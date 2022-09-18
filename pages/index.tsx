@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   };
 };
 
-function Home({ menu }: HomeProps): JSX.Element {
+function Home(): JSX.Element {
   const [rating, setRating] = useState(0);
 
   return (
@@ -43,14 +43,6 @@ function Home({ menu }: HomeProps): JSX.Element {
       <Tag color='primary' href='avx'>text</Tag>
 
       <Rating rating={rating} isEditable setRating={setRating}/>
-
-      <ul>
-        {menu.map(({ _id }) => {
-          return (
-            <li key={_id.secondCategory}>{_id.secondCategory}</li>
-          );
-        })}
-      </ul>
     </>
   );
 }
